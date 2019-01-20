@@ -5,16 +5,16 @@
 //定义全文替换的结构体
 typedef struct ReplaceFullFile
 {
-    QVector<QString> findWhatVec;
-    QVector<QString> replaceWithVec;
+    QString findWhat;
+    QString replaceWith;
 
 }ReplaceFullFile;
 
 //定义有起始和结束替换标志的结构体
 typedef struct ReplaceWithFlags
 {
-    QVector<QString> findWhatVec;
-    QVector<QString> replaceWithVec;
+    QString findWhat;
+    QString replaceWith;
     QString begReplaceFlag;//替换起始标志
     QString endReplaceFlag;//替换结束标志
 
@@ -23,8 +23,8 @@ typedef struct ReplaceWithFlags
 //定义替换行的结构体
 typedef struct ReplaceLine
 {
-    QVector<QString> findWhatVec;
-    QVector<QString> replaceWithVec;
+    QString findWhat;
+    QString replaceWith;
     QString replaceWhen;//当某行出现改内容时，把该行替换
 
 }ReplaceLine;

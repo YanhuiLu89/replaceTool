@@ -4,7 +4,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    readConfigFile();
-    replaceFiles();
+    if(readConfigFile())
+    {
+       replaceFiles();
+    }
     return a.exec();
 }

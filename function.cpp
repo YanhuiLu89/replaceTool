@@ -8,7 +8,6 @@
 #include <QtDebug>
 #include <iostream>
 #include <QTextCodec>
-#include <QVector>
 
 //定义3个代表替换方式的全局变量，
 ReplaceFullFile g_replaceFullFile;
@@ -46,51 +45,103 @@ bool readConfigFile()
 
     //解析各个字段
     QJsonObject obj = jsonDoc.object();
+    QJsonArray arrayTemp;
+    int looper=0;
 
     //解析replaceFullFileMode
     QJsonObject repFullFileObj=obj.value("replaceFullFileMode").toObject();
-    g_replaceFullFile.findWhat=repFullFileObj.value("find_waht").toString();
-    g_replaceFullFile.replaceWith=repFullFileObj.value("replace_with").toString();
+
     qDebug() << "g_replaceFullFil.findWhat:";
-    qDebug() << g_replaceFullFile.findWhat;
+    arrayTemp=repFullFileObj.value("find_waht").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceFullFile.findWhat.append(arrayTemp.at(looper).toString());
+        qDebug() << g_replaceFullFile.findWhat.at(looper);
+    }
+
     qDebug() << "g_replaceFullFil.replaceWith:";
-    qDebug() << g_replaceFullFile.replaceWith;
+    arrayTemp=repFullFileObj.value("replace_with").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceFullFile.replaceWith.append(arrayTemp.at(looper).toString());
+        qDebug() << g_replaceFullFile.replaceWith.at(looper);
+    }
     qDebug() << "\n";
+    if(g_replaceFullFile.findWhat.size()!=g_replaceFullFile.replaceWith.size())
+    {
+        qDebug() << "Error! in replaceFullFileMode,findWhat.size()!=replaceWith.size().please check config.json file.";
+        return false;
+    }
 
     //解析replaceWithFlagsMode
     QJsonObject replaceWithFlagObj=obj.value("replaceWithFlagsMode").toObject();
-    g_replaceWithFlags.findWhat=replaceWithFlagObj.value("find_waht").toString();
-    g_replaceWithFlags.replaceWith=replaceWithFlagObj.value("replace_with").toString();
+
+    qDebug() << "g_replaceWithFlags.findWhat:";
+    arrayTemp=replaceWithFlagObj.value("find_waht").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceWithFlags.findWhat.append(arrayTemp.at(looper).toString());
+        qDebug() << g_replaceWithFlags.findWhat.at(looper);
+    }
+
+    qDebug() << "g_replaceWithFlags.replaceWith:";
+    arrayTemp=replaceWithFlagObj.value("replace_with").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceWithFlags.replaceWith.append(arrayTemp.at(looper).toString());
+        qDebug() << g_replaceWithFlags.replaceWith.at(looper);
+    }
     g_replaceWithFlags.begReplaceFlag=replaceWithFlagObj.value("begReplace_flag").toString();
     g_replaceWithFlags.endReplaceFlag=replaceWithFlagObj.value("endReplace_flag").toString();
-    qDebug() << "g_replaceWithFlags.findWhat:";
-    qDebug() << g_replaceWithFlags.findWhat;
-    qDebug() << "g_replaceWithFlags.replaceWith:";
-    qDebug() << g_replaceWithFlags.replaceWith;
+
     qDebug() << "g_replaceWithFlags.begReplaceFlag:";
     qDebug() << g_replaceWithFlags.begReplaceFlag;
     qDebug() << " g_replaceWithFlags.endReplace_flag:";
     qDebug() << g_replaceWithFlags.endReplaceFlag;
     qDebug() << "\n";
+    if(g_replaceWithFlags.findWhat.size()!=g_replaceWithFlags.replaceWith.size())
+    {
+        qDebug() << "Error! in replaceWithFlagsMode,findWhat.size()!=replaceWith.size().please check config.json file.";
+        return false;
+    }
 
     //解析replaceLineMode
     QJsonObject replaceLineObj=obj.value("replaceLineMode").toObject();
-    g_replaceLine.findWhat=replaceLineObj.value("find_waht").toString();
-    g_replaceLine.replaceWith=replaceLineObj.value("replace_with").toString();
-    g_replaceLine.replaceWhen=replaceLineObj.value("replace_when").toString();
+
     qDebug() << "g_replaceLine.findWhat:";
-    qDebug() << g_replaceLine.findWhat;
+    arrayTemp=replaceLineObj.value("find_waht").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceLine.findWhat.append(arrayTemp.at(looper).toString());
+        qDebug() <<g_replaceLine.findWhat.at(looper);
+    }
+
     qDebug() << "g_replaceLine.replaceWith:";
-    qDebug() << g_replaceLine.replaceWith;
+    arrayTemp=replaceLineObj.value("replace_with").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
+    {
+        g_replaceLine.replaceWith.append(arrayTemp.at(looper).toString());
+        qDebug() <<g_replaceLine.replaceWith.at(looper);
+    }
+    g_replaceLine.replaceWhen=replaceLineObj.value("replace_when").toString();
     qDebug() << "g_replaceLine.replaceWhen:";
     qDebug() << g_replaceLine.replaceWhen;
     qDebug() << "\n";
+    if(g_replaceLine.findWhat.size()!=g_replaceLine.replaceWith.size())
+    {
+        qDebug() << "Error! in replaceLineMode,findWhat.size()!=replaceWith.size().please check config.json file.";
+        return false;
+    }
 
     //解析要处理的文件列表
-    QJsonArray array=obj.value("process_files").toArray();
-    for(int i=0;i<array.size();i++)
+    arrayTemp=obj.value("process_files").toArray();
+    for(looper=0;looper<arrayTemp.size();looper++)
     {
-        g_files.append(array.at(i).toString());
+        g_files.append(arrayTemp.at(looper).toString());
+    }
+    if(g_files.size()==0)
+    {
+       qDebug() << "Error! no process files,please check config.json file.";
     }
     return true;
 }
@@ -126,7 +177,10 @@ bool replaceFullFile(QString file)
 
      QTextCodec *tc = QTextCodec::codecForName("GBK");
      QString  allDataStr= tc->toUnicode(allData);
-     allDataStr.replace( g_replaceFullFile.findWhat,g_replaceFullFile.replaceWith);
+     for(int i=0;i<g_replaceFullFile.findWhat.size();i++)
+     {
+         allDataStr.replace( g_replaceFullFile.findWhat.at(i),g_replaceFullFile.replaceWith.at(i));
+     }
 
      //把处理后的内容重新写入到文件
      loadFile.open(QIODevice::WriteOnly);
@@ -161,7 +215,10 @@ bool replaceLine(QString file)
        strLine = NctextStream.readLine();
        if(strLine.indexOf(g_replaceLine.replaceWhen)!=-1)
        {
-           strLine.replace(g_replaceLine.findWhat,g_replaceLine.replaceWith);
+           for(int i=0;i<g_replaceLine.findWhat.size();i++)
+           {
+              strLine.replace(g_replaceLine.findWhat.at(i),g_replaceLine.replaceWith.at(i));
+           }
        }
       afterReplaceStr.append(strLine);
       afterReplaceStr.append("\r\n");
@@ -213,14 +270,20 @@ bool replaceWithFlag(QString file)
      if(endIndex==-1)
      {
          //如果开始标志往后没有结束标志。直接处理所有开始标志之后的字符串
-         afterBegFlagStr.replace(g_replaceWithFlags.findWhat,g_replaceWithFlags.replaceWith);
+         for(int i=0;i<g_replaceWithFlags.findWhat.size();i++)
+         {
+            afterBegFlagStr.replace(g_replaceWithFlags.findWhat.at(i),g_replaceWithFlags.replaceWith.at(i));
+         }
          afterDataStr.append(beforeBegFlagStr);
          afterDataStr.append(afterBegFlagStr);
      }else
      {
          //如果开始标志往后找到了结束标志
          QString midStr=afterBegFlagStr.mid(0,endIndex+g_replaceWithFlags.endReplaceFlag.length());//处理开始和结束之间的字符串标志之后的字符串包括结束标志
-         midStr.replace(g_replaceWithFlags.findWhat,g_replaceWithFlags.replaceWith);
+         for(int i=0;i<g_replaceWithFlags.findWhat.size();i++)
+         {
+             midStr.replace(g_replaceWithFlags.findWhat.at(i),g_replaceWithFlags.replaceWith.at(i));
+         }
          afterDataStr.append(beforeBegFlagStr);
          afterDataStr.append(midStr);
          if(endIndex+g_replaceWithFlags.endReplaceFlag.length()<afterBegFlagStr.length())//如果结束标志不在文件末尾处

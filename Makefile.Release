@@ -90,7 +90,7 @@ $(OBJECTS) $(LIBS)
 <<
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-msvc2013 -o Makefile.Release replaceTool.pro
+	@$(QMAKE) -spec win32-msvc2013 CONFIG+=debug -o Makefile.Release replaceTool.pro
 
 qmake_all: FORCE
 
@@ -184,7 +184,10 @@ release\main.obj: main.cpp C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QCor
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qobject_impl.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qeventloop.h \
 		function.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QString
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QString \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QVector \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qvector.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qpoint.h
 
 release\function.obj: function.cpp function.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QString \
@@ -223,10 +226,16 @@ release\function.obj: function.cpp function.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qnamespace.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qarraydata.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qstringbuilder.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QVector \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qvector.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qalgorithms.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qiterator.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qlist.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qbytearraylist.h \
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qpoint.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QJsonObject \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qjsonobject.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qjsonvalue.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qiterator.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qpair.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QJsonArray \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qjsonarray.h \
@@ -241,9 +250,6 @@ release\function.obj: function.cpp function.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qobject.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qobjectdefs.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qobjectdefs_impl.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qlist.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qalgorithms.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qbytearraylist.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qcoreevent.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qscopedpointer.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qmetatype.h \
@@ -263,13 +269,10 @@ release\function.obj: function.cpp function.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qregexp.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qstringmatcher.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qshareddata.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qvector.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qpoint.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qset.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qcontiguouscache.h \
 		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QTextCodec \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qtextcodec.h \
-		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\QVector
+		C:\Qt\Qt5.4.0\5.4\msvc2013_opengl\include\QtCore\qtextcodec.h
 
 ####### Install
 

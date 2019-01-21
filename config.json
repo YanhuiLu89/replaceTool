@@ -1,6 +1,6 @@
 {
-    "replaceFullFileMode":{"find_waht": "道","replace_with": "不懂得"},
-    "replaceWithFlagsMode":{"find_waht": "先生","replace_with": "老师","begReplace_flag": "长妈妈","endReplace_flag":"文章"},
-    "replaceLineMode":{"find_waht": "的","replace_with": "白勺","replace_when": "大"},
+    "replaceFullFileMode":{"find_waht": ["道","上"],"replace_with": ["不懂得","up"]},
+    "replaceWithFlagsMode":{"find_waht": ["先生","他"],"replace_with": ["老师","她"],"begReplace_flag": "长妈妈","endReplace_flag":"文章"},
+    "replaceLineMode":{"find_waht": ["的","人"],"replace_with": ["白勺","大人"],"replace_when": "大"},
     "process_files":["从百草园到三味书屋.txt","顺风车.txt"] 
 }
